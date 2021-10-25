@@ -20,7 +20,11 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
 });
 
 // routes - This is the right route, I need to make the file
-//app.use(require("./routes/api.js"));
+app.use(require("./routes/apiRoutes.js"));
+
+
+//I need to load the other html pages
+app.use(require("./routes/htmlRoutes.js"));
 
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}!`);
