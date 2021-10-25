@@ -19,12 +19,8 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
   useFindAndModify: false
 });
 
-// routes
+// routes - This is the right route, I need to make the file
 //app.use(require("./routes/api.js"));
-
-//app.use(require("./api.js"));
-
-app.use(require("./public/api.js"));
 
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}!`);
