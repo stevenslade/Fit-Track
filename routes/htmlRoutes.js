@@ -7,7 +7,7 @@ module.exports = function(app) {
         res.sendFile(path.join(__dirname, "../public/index.html"));
     });
 
-    //route for excersice html
+    //route for excercise html
     app.get("/exercise", function(req, res) {
         res.sendFile(path.join(__dirname, "../public/exercise.html"));
     });
@@ -19,3 +19,8 @@ module.exports = function(app) {
 
 };
 
+//../public/stats.html
+
+//../exercise.html
+
+//./public/exercise.html
