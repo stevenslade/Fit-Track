@@ -19,8 +19,11 @@ module.exports = function(app) {
 
 };
 
-//../public/stats.html
+// these ruotes do not load
+// ./public/exercise.html
+
+// /public/stats.html
 
 //../exercise.html
 
-//./public/exercise.html
+// /exercise.html

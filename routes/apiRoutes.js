@@ -1,53 +1,69 @@
-const Workout = require("../models/Workout.js");
-const mongoose = require("mongoose");
-const express = require("express");
-const router = express.Router();
+const db = require('../models'); 
 
-router.post("/api/workouts", ({ body }, res) => {
-  Workout.create({})
-    .then((dbWorkout) => {
-      res.json(dbWorkout);
+module.exports = function(app) {
+
+//post route for a new Workout 
+app.post("/api/workouts", async ({ body }, res) => {
+// console.log(body); 
+await db.Workout.create(body)
+    .then(data => {
+        res.json(data);
     })
-    .catch(({ message }) => {
-      console.log(message);
+    .catch(err => {
+        res.json(err);
     });
 });
 
-router.put("/api/workouts/:id", ({ params, body }, res) => {
-  console.log("PARAMS", body, params);
+// route for all Workouts 
+app.get("/api/workouts", (req, res) => {
+db.Workout.find({})
+.then(data => {
+    res.json(data); 
+})
+.catch(err => {
+    res.json(err); 
+});
+}); 
 
-  Workout.findOneAndUpdate(
-    { _id: params.id },
-    { $push: { exercises: body } },
-    { new: true }
-  )
-    .then((dbWorkout) => {
-      res.json(dbWorkout);
-    })
-    .catch((err) => {
-      res.json(err);
-    });
+//update a workout with ID 
+app.put("/api/workouts/:id", ({ body, params }, res) => {
+    const workoutId = params.id;
+    let savedExercises = [];
+
+    // find all excercises with the workout ID
+        db.Workout.find({_id: workoutId})
+        .then(dbWorkout => {
+            savedExercises = dbWorkout[0].exercises;
+            res.json(dbWorkout[0].exercises);
+            let allExercises = [...savedExercises, body]; 
+            updateWorkout(allExercises); 
+        })
+        .catch(err => {
+            res.json(err);
+        });
+
+    function updateWorkout(exercises){
+        db.Workout.findByIdAndUpdate(workoutId, {exercises: exercises}, 
+            function(err, doc){
+                if(err){
+                    console.log(err)
+                }
+            })
+        }      
 });
 
-router.get("/api/workouts/range", (req, res) => {
-  Workout.find({})
-    .limit(7)
-    .then((dbWorkout) => {
-      res.json(dbWorkout);
-    })
-    .catch((err) => {
-      res.json(err);
-    });
-});
 
-router.get("/api/workouts", (req, res) => {
-  Workout.find({})
-    .then((dbWorkout) => {
-      res.json(dbWorkout);
+//route for stats page - Need to limit this to the most recent seven workouts
+app.get("/api/workouts/range", (req, res) => {
+    db.Workout.find({})
+    .then(data => {
+        res.json(data); 
     })
-    .catch((err) => {
-      res.json(err);
+    .catch(err => {
+        res.json(err); 
     });
-});
+}); 
 
-module.exports = router;
+}; 
+
+
