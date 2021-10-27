@@ -54,8 +54,9 @@ app.put("/api/workouts/:id", ({ body, params }, res) => {
 
 
 //route for stats page - Need to limit this to the most recent seven workouts
+// limit(7) is returning the first seven workouts not the last
 app.get("/api/workouts/range", (req, res) => {
-    db.Workout.find({})
+    db.Workout.find({}).sort( { "day": -1 }).limit(7)
     .then(data => {
         res.json(data); 
     })
