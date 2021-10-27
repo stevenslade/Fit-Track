@@ -31,7 +31,6 @@ A daily workout tracking app for logging multiple types of excercises in a worko
 
 ## <a id="technologies"></a>Technologies and Skills Demonstrated
 
-* MVC paradigm
 * HTML & CSS
 * Mongodb
 * Express
@@ -44,7 +43,7 @@ A daily workout tracking app for logging multiple types of excercises in a worko
 
 ## <a id="sample"></a>Visit the App deployed on Heroku
 
-* [Link to Deployed Application](https://arcane-forest-46584.herokuapp.com/)
+* [Link to Deployed Application](https://dry-woodland-30443.herokuapp.com/)
 
 ## <a id="installation"></a>Installation
 
